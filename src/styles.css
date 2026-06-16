@@ -2,25 +2,36 @@
 @source "../src";
 
 @theme {
-  --color-ink: #0d0d0d;
-  --color-ink-2: #141414;
-  --color-ink-3: #111111;
-  --color-cream: #f5f0e8;
-  --color-gold: #c9a84c;
-  --color-warmgray: #2a2a2a;
+  --color-ink: #1a1a1a;
+  --color-ink-2: #f7f5f0;
+  --color-ink-3: #eeebe4;
+  --color-cream: #1a1a1a;
+  --color-gold: #b8943f;
+  --color-warmgray: #e8e4dc;
   --font-display: "Cormorant Garamond", serif;
   --font-sans: "DM Sans", sans-serif;
 }
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 html, body {
-  background-color: #0d0d0d;
-  color: #f5f0e8;
+  background-color: #faf8f4;
+  color: #1a1a1a;
   font-family: "DM Sans", sans-serif;
   -webkit-font-smoothing: antialiased;
+  cursor: none;
+}
+
+@media (max-width: 768px) {
+  html, body {
+    cursor: auto;
+  }
 }
 
 .font-display { font-family: "Cormorant Garamond", serif; }
@@ -32,7 +43,7 @@ html, body {
   font-size: 11px;
   letter-spacing: 0.32em;
   text-transform: uppercase;
-  color: #c9a84c;
+  color: #b8943f;
 }
 
 @keyframes scrollLine {
@@ -44,8 +55,104 @@ html, body {
 .scroll-indicator {
   width: 1px;
   height: 60px;
-  background: #c9a84c;
+  background: #b8943f;
   animation: scrollLine 2.4s ease-in-out infinite;
+}
+
+/* Custom cursor */
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  border: 1px solid #b8943f;
+  border-radius: 50%;
+  background: transparent;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, height 0.3s ease, border-width 0.3s ease, background 0.3s ease;
+}
+
+.custom-cursor.hovering {
+  width: 20px;
+  height: 20px;
+  border-width: 1.5px;
+  background: rgba(184, 148, 63, 0.08);
+}
+
+/* Horizontal scroll strip for mobile */
+.in-his-element-strip {
+  display: flex;
+  gap: 0;
+}
+
+@media (max-width: 768px) {
+  .in-his-element-strip {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  .in-his-element-strip::-webkit-scrollbar {
+    display: none;
+  }
+  .in-his-element-strip {
+    scrollbar-width: none;
+  }
+  .in-his-element-panel {
+    min-width: 100vw;
+    height: 55vh;
+    scroll-snap-align: start;
+  }
+}
+
+@media (min-width: 769px) {
+  .in-his-element-panel {
+    width: 33.333vw;
+    height: 70vh;
+  }
+}
+
+/* Quote bleed image */
+.quote-bleed-img {
+  width: 100%;
+  height: 60vh;
+  object-fit: cover;
+  object-position: center top;
+  filter: sepia(8%) brightness(0.9);
+  display: block;
+}
+
+/* Inline tribute video */
+.tribute-inline-video {
+  width: 100%;
+  height: 380px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Closing gold line */
+.closing-gold-line {
+  width: 100%;
+  height: 1px;
+  background: #b8943f;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+/* Element strip panel */
+.in-his-element-panel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: sepia(6%) brightness(0.92);
+  transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+.in-his-element-panel:hover img {
+  transform: scale(1.04);
+  filter: sepia(6%) brightness(1.0);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -56,4 +163,6 @@ html, body {
     scroll-behavior: auto !important;
   }
   .scroll-indicator { animation: none; opacity: 0.6; }
+  .custom-cursor { display: none; }
+  html, body { cursor: auto; }
 }
