@@ -1,11 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-export const Route = createFileRoute("/")(  {
-  component: Tribute,
-});
 
 const IMG = {
   hero: "https://res.cloudinary.com/dk32rkate/image/upload/v1781592250/0f19fae64fa944afb0543e21fe6e890f_q0yc4d.jpg",
@@ -94,7 +89,7 @@ function LazyVideo({
   );
 }
 
-function Tribute() {
+export function Tribute() {
   const pageRef = useRef<HTMLDivElement>(null);
   const cursorRef = useRef<HTMLDivElement>(null);
 
@@ -102,7 +97,6 @@ function Tribute() {
     gsap.registerPlugin(ScrollTrigger);
 
     const prefersReducedMotion =
-      typeof window !== "undefined" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     // Custom cursor (desktop only)
